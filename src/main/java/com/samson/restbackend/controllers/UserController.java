@@ -23,6 +23,11 @@ public class UserController {
         return service.get(userId);
     }
 
+    @GetMapping("/users")
+    public Iterable<UserResponse> getAll() {
+        return service.getAllUsers();
+    }
+
     @PostMapping(path = "/users/create")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse create(@Valid @RequestBody CreateUserRequest requestBody) {

@@ -33,6 +33,15 @@ public class UserService {
         return new UserResponse(u.getUser_id().toString(), u.getUsername(), u.getEmail(), u.getUserRole().name());
     }
 
+    @Transactional(readOnly = true)
+    public Iterable<UserResponse> getAllUsers() {
+        return repository.findAll().stream().map(
+                u -> new UserResponse(
+                        u.getUser_id().toString(), u.getUsername(), u.getEmail(), u.getUserRole().name()
+                )
+        ).toList();
+    }
+
     @Transactional
     public UserResponse create(@NotNull CreateUserRequest request) {
         if (repository.existsByEmail(request.email())) throw new ResponseStatusException(HttpStatus.CONFLICT, "email already exists");
