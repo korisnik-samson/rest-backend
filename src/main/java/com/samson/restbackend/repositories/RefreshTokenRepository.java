@@ -20,11 +20,11 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, UUID
     Long deleteByUserId(UUID userId);
 
     @Modifying
-    @Query(value = "update RefreshToken r set r.revoked = true where r.userId = :userId", nativeQuery = true)
+    @Query(value = "update refresh_tokens r set r.revoked=true where r.user_id=:userId", nativeQuery = true)
     Long updateByUserIdSetRevokedTrue(UUID userId);
 
     @Modifying
-    @Query(value = "update RefreshToken r set r.revoked = true where r.userId = :userId and r.revoked = false", nativeQuery = true)
+    @Query(value = "update refresh_tokens r set r.revoked=true where r.user_id=:userId and r.revoked=false", nativeQuery = true)
     Integer revokeAllForUser(UUID userId);
 
 }
